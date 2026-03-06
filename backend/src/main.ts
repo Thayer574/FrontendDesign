@@ -38,8 +38,8 @@ async function bootstrap() {
 
   // Swagger / OpenAPI setup
   const config = new DocumentBuilder()
-    .setTitle("Margin API")
-    .setDescription("Margin backend API — auth, users, notes, calendar, widgets")
+    .setTitle("BigBrother API")
+    .setDescription("BigBrother platform API")
     .setVersion("1.0")
     .addBearerAuth(
       { type: "http", scheme: "bearer", bearerFormat: "JWT" },
