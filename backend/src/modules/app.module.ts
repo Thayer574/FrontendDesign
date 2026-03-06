@@ -28,7 +28,7 @@ import { CommonModule } from "./common/common.module";
       database: process.env.DB_NAME || "margin_dev",
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV !== "production",
-      ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+      ssl: false,
       logging: process.env.NODE_ENV === "development" ? ["error"] : [],
       extra: {
         max: 30,
