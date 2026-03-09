@@ -15,7 +15,6 @@ import {
 import { AuthService } from "./auth.service";
 import { BodyRequiredGuard } from "./guard/body-required.guard";
 import { JwtAuthGuard } from "./guard/jwt-auth.guard";
-import { RefreshUserTokensDto } from "./dto/refreshUserTokens.dto";
 import { createUserDto } from "./dto/CreateUser.dto";
 import { loginUserDto } from "./dto/loginUser.dto";
 import type { AuthenticatedRequest } from "../common/AuthenticatedRequest";
@@ -103,7 +102,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
   async refresh(
-    @Body() refreshTokenDto: RefreshUserTokensDto,
     @Request() req: AuthenticatedRequest,
     @Response({ passthrough: true }) res: ExpressResponse,
   ) {
