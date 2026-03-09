@@ -3,11 +3,11 @@
 Ignite project to safely test window app installs for security, performance, and effected files
 
 Developers Currently working on backend:
-	  Lead Dev - Cameron
-	  Dev - Alex
-	  Dev - Aaden
-	  Dev - Felix
-	  Dev - Noah
+- Lead Dev: Cameron
+- Dev: Alex
+- Dev: Aaden
+- Dev: Felix
+- Dev: Noah
 
 Tasks
     1. Json (waiting on team 3)
