@@ -49,6 +49,21 @@ export class CacheService {
   }
 
   /**
+   * Tests Redis connectivity by sending a PING command.
+   * Does not read or write any application data.
+   * Returns `true` if Redis responds with PONG, `false` otherwise.
+   */
+  async ping(): Promise<boolean> {
+    try {
+      const response = await this.redis.ping(["HEALTHY"]);
+      return response === 'HEALTHY';
+    } catch (error) {
+      this.logger.warn(`Cache PING failed: ${(error as Error).message}`);
+      return false;
+    }
+  }
+
+  /**
    * Deletes one or more keys atomically via a single Redis DEL command.
    * Safe to call with an empty list — returns immediately without hitting Redis.
    */
