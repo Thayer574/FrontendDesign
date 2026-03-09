@@ -45,10 +45,17 @@ export class AuthService {
     refreshToken: string;
     user: { id: string; username: string; role: string };
   }> {
+    // Doesn't check cache since cache is keyed by UUID
     const user: User | null = await this.dbService.findOne(
       undefined,
       loginUserDto.username,
     );
+    if (!user) {
+      this.logger.debug(
+        `Could not find user`,
+        "AuthService",
+      );
+    }
 
     const comparisonHash = user
       ? user.password
@@ -169,14 +176,20 @@ export class AuthService {
     req: AuthenticatedRequest,
     refreshToken: string,
   ): Promise<{ message: string; accessToken: string; refreshToken: string }> {
-    const user: User | null = await this.dbService.findOne(req.user.id);
-    if (!user || !user.refreshTokenHash)
-      throw new UnauthorizedException("Error validating refresh token");
+    // Read the hash from the dedicated refresh_token:{userId} cache key rather
+    // than from the user entity cache. The user entity cache (user:{userId}) is
+    // a general-purpose cache whose DEL can fail silently, leaving a stale hash
+    // in place and allowing replayed tokens to pass validation. The
+    // refresh_token:{userId} key is always written atomically with the DB in
+    // saveRefreshToken, so it is always authoritative.
+    const storedHash = await this.dbService.getRefreshTokenHash(req.user.id);
+    if (!storedHash) throw new UnauthorizedException("Error validating refresh token");
 
     const isValidToken = await this.jwtService.compareToken(
       refreshToken,
-      user.refreshTokenHash,
+      storedHash,
     );
+
     if (!isValidToken) {
       this.logger.warn(
         `Invalid refresh token attempt for user: ${req.user.id}`,
@@ -185,11 +198,12 @@ export class AuthService {
       throw new UnauthorizedException("Invalid refresh token");
     }
 
+    // role is already on req.user from JwtAuthGuard — no need to re-fetch the user.
     const {
       accessToken,
       refreshToken: newRefreshToken,
       refreshTokenHash,
-    } = await this.jwtService.rotateTokens(req.user.id, user.role);
+    } = await this.jwtService.rotateTokens(req.user.id, req.user.role);
     await this.dbService.saveRefreshToken(req.user.id, refreshTokenHash);
 
     this.logger.logUserStats("token_refresh", req.user.id);
@@ -201,9 +215,7 @@ export class AuthService {
     };
   }
 
-  async getLoggedIn(
-    accessToken: string,
-  ): Promise<{ loggedIn: boolean; userId?: string }> {
+  async getLoggedIn(accessToken: string): Promise<{ loggedIn: boolean; userId?: string }> {
     return { loggedIn: await this.jwtService.verifyToken(accessToken) };
   }
 
