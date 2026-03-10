@@ -24,12 +24,9 @@ export class JwtService {
   // ----- REFRESH TOKEN -----
   generateRefreshToken(payload: JwtPayload): Promise<string> {
     return this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>("JWT_SECRET"), // Use symmetric secret
-      algorithm: "HS256", // Switch to HS256
       expiresIn: this.configService.get<string>(
         "JWT_REFRESH_EXP",
-        "7d",
-      ) as unknown as SignOptions["expiresIn"],
+      ) as unknown as SignOptions["expiresIn"]
     });
   }
 
