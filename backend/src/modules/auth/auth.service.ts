@@ -48,10 +48,7 @@ export class AuthService {
       loginUserDto.username,
     );
     if (!user) {
-      this.logger.debug(
-        `Could not find user`,
-        "AuthService",
-      );
+      this.logger.debug(`Could not find user`, "AuthService");
     }
 
     const comparisonHash = user
