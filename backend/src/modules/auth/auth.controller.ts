@@ -86,7 +86,7 @@ export class AuthController {
   /**
    *
    * @param createUserDto The login credentials containing username and password
-   * @param res The repsonse object used to set auth cookies on successful registration
+   * @param res The response object used to set auth cookies on successful registration
    * @throws BadRequestException if registration fails due to invalid input or username already taken
    * @returns Promise resolving to registration result with user data and token on success,
    */
