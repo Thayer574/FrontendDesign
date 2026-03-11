@@ -24,8 +24,8 @@ Goal: Fix critical and high severity security issues identified in security revi
 
 - [x] **CRITICAL: Add Rate Limiting**
   - Install `@nestjs/throttler` package
-  - Configure rate limiting in `main.ts` (e.g., 100 requests per 15 minutes)
-  - Add stricter limits for auth endpoints (e.g., 5 login attempts per minute)
+  - Configure global rate limiting via `ThrottlerModule` and `APP_GUARD` in `src/modules/app.module.ts` (e.g., 100 requests per 15 minutes)
+  - Add stricter limits for auth endpoints using per-route throttling (e.g., 5 login attempts per minute on login routes)
   - **Impact:** Currently vulnerable to brute force and DDoS attacks
 
 - [ ] **CRITICAL: Add Security Headers**
