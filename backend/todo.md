@@ -11,7 +11,7 @@ How to use this file:
 
 ---
 
-## Track 0 — Security Vulnerabilites
+## Track 0 — Security Vulnerabilities
 
 Goal: Fix critical and high severity security issues identified in security review
 
