@@ -8,7 +8,7 @@ This project-level CLAUDE.md is a short reference for future Claude Code session
 
 ## Quick facts
 
-- Project: NestJS Template (JWT auth, RBAC, TypeORM + SQLite)
+- Project: NestJS Template (JWT auth, RBAC, TypeORM + PostgreSQL)
 - Language: TypeScript
 - Framework: NestJS 11
 - Test runner: Jest
