@@ -35,7 +35,7 @@ This project-level CLAUDE.md is a short reference for future Claude Code session
 - Environment variables are read via `@nestjs/config`. See README `Environment Variables` section.
 - Required at runtime:
   - `JWT_SECRET` (must be set in production)
-  - Optional but recommended: `PORT`, `JWT_EXPIRATION`, `JWT_REFRESH_EXP`
+  - Optional but recommended: `PORT`, `JWT_ACCESS_EXP`, `JWT_REFRESH_EXP`
 - Development default port: 5200
 - Never commit real secrets. `.env` is in `.gitignore`.
 
