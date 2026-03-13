@@ -49,9 +49,9 @@ export class CacheService {
   }
 
   /**
-   * Tests Redis connectivity by sending a PING command.
+   * Tests Redis connectivity by sending a PING command with the message "HEALTHY".
    * Does not read or write any application data.
-   * Returns `true` if Redis responds with PONG, `false` otherwise.
+   * Returns `true` if Redis responds with "HEALTHY", `false` otherwise.
    */
   async ping(): Promise<boolean> {
     try {
