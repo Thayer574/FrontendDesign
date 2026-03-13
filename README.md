@@ -262,7 +262,7 @@ The backend uses TypeORM with `synchronize: true` in development, so the schema 
 ### 5. Start the Development Server
 
 ```bash
-npm run start:dev
+npm run dev
 ```
 
 The server starts at **`http://localhost:8080`** in development mode.
