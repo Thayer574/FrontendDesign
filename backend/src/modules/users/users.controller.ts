@@ -47,13 +47,8 @@ export class UsersController {
 	@UseGuards(RolesGuard)
 	@Roles(UserRole.ADMIN)
 	@HttpCode(HttpStatus.NO_CONTENT)
-	async deleteUser(@Param('uuid') uuid: string, @Request() req: AuthenticatedRequest) {
+	async deleteUser(@Param('uuid') uuid: string) {
 		await this.usersService.remove(uuid);
-		return {
-			message: 'User deleted',
-			id: req.user.id,
-			username: req.user.username,
-		};
 	}
 
 	@Patch(':uuid')
