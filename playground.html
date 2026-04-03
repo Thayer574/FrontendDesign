@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bubble Playground</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        background: linear-gradient(135deg, #222831 0%, #1a1f26 100%);
+        font-family: 'Hind Vadodara', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .playground {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Interactive bubbles */
+    .bubble {
+        position: absolute;
+        background: #393E46;
+        border-radius: 50%;
+        opacity: 0.7;
+        cursor: grab;
+        transition: opacity 0.3s;
+        box-shadow: 0 8px 32px rgba(0, 173, 181, 0.2);
+    }
+
+    .bubble:hover {
+        opacity: 0.9;
+        box-shadow: 0 12px 48px rgba(0, 173, 181, 0.4);
+        cursor: grab;
+    }
+
+    .bubble.dragging {
+        opacity: 1;
+        cursor: grabbing;
+        box-shadow: 0 16px 64px rgba(0, 173, 181, 0.6);
+        z-index: 1000;
+    }
+
+    /* Header */
+    .header {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: rgba(34, 40, 49, 0.8);
+        padding: 15px 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+
+    .header h1 {
+        font-family: 'Khula', sans-serif;
+        color: #ECCE8E;
+        font-size: 24px;
+    }
+
+    .header .user-info {
+        color: #00ADB5;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logout-btn {
+        padding: 8px 16px;
+        background: #00ADB5;
+        color: #EEEEEE;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: 'Assistant', sans-serif;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+        background: #00ADB5;
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+
+    /* Instructions */
+    .instructions {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(34, 40, 49, 0.8);
+        padding: 15px 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        color: #ECCE8E;
+        font-size: 13px;
+        text-align: center;
+        z-index: 100;
+    }
+
+    .instructions p {
+        margin: 5px 0;
+    }
+
+    .instructions strong {
+        color: #00ADB5;
+    }
+
+    /* Animation keyframes */
+    @keyframes float1 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(15px, -20px); }
+        50% { transform: translate(25px, 10px); }
+        75% { transform: translate(5px, 15px); }
+    }
+
+    @keyframes float2 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-10px, 25px); }
+        50% { transform: translate(20px, 5px); }
+        75% { transform: translate(-15px, -10px); }
+    }
+
+    @keyframes float3 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(18px, -15px); }
+        50% { transform: translate(-5px, 20px); }
+        75% { transform: translate(12px, -5px); }
+    }
+
+    @keyframes float4 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(20px, -18px); }
+        50% { transform: translate(-10px, 15px); }
+        75% { transform: translate(15px, 8px); }
+    }
+
+    @keyframes float5 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-15px, 20px); }
+        50% { transform: translate(18px, -10px); }
+        75% { transform: translate(-8px, -15px); }
+    }
+
+    @keyframes float6 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-20px, -15px); }
+        50% { transform: translate(-10px, 18px); }
+        75% { transform: translate(-25px, 5px); }
+    }
+
+    @keyframes float7 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(15px, 22px); }
+        50% { transform: translate(-12px, -8px); }
+        75% { transform: translate(20px, -12px); }
+    }
+
+    @keyframes float8 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(18px, 15px); }
+        50% { transform: translate(-8px, -20px); }
+        75% { transform: translate(12px, -10px); }
+    }
+
+    @keyframes float9 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-15px, -18px); }
+        50% { transform: translate(20px, 10px); }
+        75% { transform: translate(-10px, 15px); }
+    }
+
+    @keyframes float10 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-18px, 20px); }
+        50% { transform: translate(15px, -12px); }
+        75% { transform: translate(-12px, -8px); }
+    }
+
+    @keyframes float11 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(20px, -15px); }
+        50% { transform: translate(-10px, 18px); }
+        75% { transform: translate(14px, 10px); }
+    }
+
+    @keyframes float12 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-22px, 18px); }
+        50% { transform: translate(8px, -15px); }
+        75% { transform: translate(-15px, -10px); }
+    }
+
+    @keyframes float13 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(16px, -20px); }
+        50% { transform: translate(-14px, 12px); }
+        75% { transform: translate(18px, 8px); }
+    }
+
+    @keyframes float14 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(20px, -15px); }
+        50% { transform: translate(-12px, 20px); }
+        75% { transform: translate(15px, -8px); }
+    }
+
+    @keyframes float15 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-18px, 18px); }
+        50% { transform: translate(16px, -10px); }
+        75% { transform: translate(-10px, -15px); }
+    }
+
+    @keyframes float16 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-20px, -18px); }
+        50% { transform: translate(10px, 15px); }
+        75% { transform: translate(-15px, 10px); }
+    }
+
+    @keyframes float17 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(18px, 20px); }
+        50% { transform: translate(-15px, -12px); }
+        75% { transform: translate(12px, -18px); }
+    }
+
+    .animate-float1 { animation: float1 22s ease-in-out infinite; }
+    .animate-float2 { animation: float2 18s ease-in-out infinite; animation-delay: -2s; }
+    .animate-float3 { animation: float3 20s ease-in-out infinite; animation-delay: -5s; }
+    .animate-float4 { animation: float4 19s ease-in-out infinite; animation-delay: -3s; }
+    .animate-float5 { animation: float5 21s ease-in-out infinite; animation-delay: -7s; }
+    .animate-float6 { animation: float6 23s ease-in-out infinite; animation-delay: -4s; }
+    .animate-float7 { animation: float7 17s ease-in-out infinite; animation-delay: -1s; }
+    .animate-float8 { animation: float8 20s ease-in-out infinite; animation-delay: -6s; }
+    .animate-float9 { animation: float9 19s ease-in-out infinite; animation-delay: -2s; }
+    .animate-float10 { animation: float10 21s ease-in-out infinite; animation-delay: -8s; }
+    .animate-float11 { animation: float11 18s ease-in-out infinite; animation-delay: -3s; }
+    .animate-float12 { animation: float12 22s ease-in-out infinite; animation-delay: -5s; }
+    .animate-float13 { animation: float13 19s ease-in-out infinite; animation-delay: -4s; }
+    .animate-float14 { animation: float14 20s ease-in-out infinite; animation-delay: -7s; }
+    .animate-float15 { animation: float15 18s ease-in-out infinite; animation-delay: -1s; }
+    .animate-float16 { animation: float16 21s ease-in-out infinite; animation-delay: -6s; }
+    .animate-float17 { animation: float17 19s ease-in-out infinite; animation-delay: -2s; }
+</style>
+
+</head>
+
+<body>
+
+<div class="playground" id="playground">
+    <div class="header">
+        <h1>Bubble Playground</h1>
+        <div class="user-info">
+            <span>Welcome, <strong id="username"></strong></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <p><strong>Drag the bubbles</strong> around the screen • <strong>Double-click</strong> to toggle animation • <strong>Right-click</strong> to remove</p>
+    </div>
+</div>
+
+<script>
+    // Check if user is logged in
+    const currentUser = sessionStorage.getItem('currentUser');
+    if (!currentUser) {
+        window.location.href = 'login.html';
+    }
+
+    document.getElementById('username').textContent = currentUser;
+
+    // Bubble data
+    const bubbles = [
+        { width: 320, height: 210, x: -50, y: -90, animClass: 'animate-float1' },
+        { width: 180, height: 140, x: 120, y: -30, animClass: 'animate-float2' },
+        { width: 240, height: 160, x: 280, y: 20, animClass: 'animate-float3' },
+        { width: 200, height: 130, x: 'center', y: -60, animClass: 'animate-float4' },
+        { width: 150, height: 100, x: 'center-right', y: 10, animClass: 'animate-float5' },
+        { width: 280, height: 180, x: 'right', y: -70, animClass: 'animate-float6' },
+        { width: 160, height: 120, x: 'right', y: 30, animClass: 'animate-float7' },
+        { width: 250, height: 170, x: -60, y: 'bottom', animClass: 'animate-float8' },
+        { width: 190, height: 140, x: 140, y: 'bottom-mid', animClass: 'animate-float9' },
+        { width: 220, height: 150, x: 'center', y: 'bottom', animClass: 'animate-float10' },
+        { width: 170, height: 110, x: 'center', y: 'bottom-mid', animClass: 'animate-float11' },
+        { width: 300, height: 190, x: 'right', y: 'bottom', animClass: 'animate-float12' },
+        { width: 160, height: 130, x: 'right', y: 'bottom-mid', animClass: 'animate-float13' },
+        { width: 140, height: 200, x: -65, y: 'mid', animClass: 'animate-float14' },
+        { width: 120, height: 160, x: -40, y: 'mid-low', animClass: 'animate-float15' },
+        { width: 150, height: 210, x: 'right', y: 'mid', animClass: 'animate-float16' },
+        { width: 130, height: 170, x: 'right', y: 'mid-low', animClass: 'animate-float17' }
+    ];
+
+    const playground = document.getElementById('playground');
+    let draggedBubble = null;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    function getPosition(xPos, yPos) {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        let x = xPos;
+        if (xPos === 'center') x = width / 2;
+        else if (xPos === 'center-right') x = width * 0.55;
+        else if (xPos === 'right') x = width - 100;
+
+        let y = yPos;
+        if (yPos === 'bottom') y = height - 100;
+        else if (yPos === 'bottom-mid') y = height * 0.7;
+        else if (yPos === 'mid') y = height * 0.3;
+        else if (yPos === 'mid-low') y = height * 0.5;
+
+        return { x, y };
+    }
+
+    // Create bubbles
+    bubbles.forEach((bubble, index) => {
+        const pos = getPosition(bubble.x, bubble.y);
+        const el = document.createElement('div');
+        el.className = `bubble ${bubble.animClass}`;
+        el.style.width = bubble.width + 'px';
+        el.style.height = bubble.height + 'px';
+        el.style.left = pos.x + 'px';
+        el.style.top = pos.y + 'px';
+        el.dataset.index = index;
+        el.dataset.animating = 'true';
+
+        // Mouse down - start dragging
+        el.addEventListener('mousedown', (e) => {
+            if (e.button === 2) return; // Right click handled separately
+            draggedBubble = el;
+            el.classList.add('dragging');
+            el.style.animation = 'none';
+            el.dataset.animating = 'false';
+
+            const rect = el.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+        });
+
+        // Double click - toggle animation
+        el.addEventListener('dblclick', () => {
+            const isAnimating = el.dataset.animating === 'true';
+            if (isAnimating) {
+                el.style.animation = 'none';
+                el.dataset.animating = 'false';
+            } else {
+                el.style.animation = '';
+                el.classList.add(bubble.animClass);
+                el.dataset.animating = 'true';
+            }
+        });
+
+        // Right click - remove bubble
+        el.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            el.style.opacity = '0';
+            el.style.transform = 'scale(0.5)';
+            setTimeout(() => el.remove(), 300);
+        });
+
+        playground.appendChild(el);
+    });
+
+    // Mouse move - drag bubbles
+    document.addEventListener('mousemove', (e) => {
+        if (draggedBubble) {
+            let x = e.clientX - offsetX;
+            let y = e.clientY - offsetY;
+
+            // Keep bubbles within bounds
+            x = Math.max(0, Math.min(x, window.innerWidth - draggedBubble.offsetWidth));
+            y = Math.max(0, Math.min(y, window.innerHeight - draggedBubble.offsetHeight));
+
+            draggedBubble.style.left = x + 'px';
+            draggedBubble.style.top = y + 'px';
+        }
+    });
+
+    // Mouse up - stop dragging
+    document.addEventListener('mouseup', () => {
+        if (draggedBubble) {
+            draggedBubble.classList.remove('dragging');
+            if (draggedBubble.dataset.animating === 'true') {
+                draggedBubble.style.animation = '';
+            }
+            draggedBubble = null;
+        }
+    });
+
+    function logout() {
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    }
+</script>
+
+</body>
+</html>

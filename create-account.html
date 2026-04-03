@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Khula:wght@600&family=Assistant:wght@400;600&family=Hind+Vadodara:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        background: #222831;
+        font-family: 'Hind Vadodara', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    /* Background shapes with flowing animation */
+    .bg-shape {
+        position: fixed;
+        background: #393E46;
+        border-radius: 40px;
+        opacity: 0.6;
+    }
+
+    /* Top-left cluster */
+    .shape1 {
+        width: 320px;
+        height: 210px;
+        top: -90px;
+        left: -50px;
+        animation: float1 22s ease-in-out infinite;
+    }
+
+    .shape2 {
+        width: 180px;
+        height: 140px;
+        top: -30px;
+        left: 120px;
+        animation: float2 18s ease-in-out infinite;
+        animation-delay: -2s;
+    }
+
+    .shape3 {
+        width: 240px;
+        height: 160px;
+        top: 20px;
+        left: 280px;
+        animation: float3 20s ease-in-out infinite;
+        animation-delay: -5s;
+    }
+
+    /* Top-center cluster */
+    .shape4 {
+        width: 200px;
+        height: 130px;
+        top: -60px;
+        left: 48%;
+        transform: translateX(-50%);
+        animation: float4 19s ease-in-out infinite;
+        animation-delay: -3s;
+    }
+
+    .shape5 {
+        width: 150px;
+        height: 100px;
+        top: 10px;
+        left: 55%;
+        transform: translateX(-50%);
+        animation: float5 21s ease-in-out infinite;
+        animation-delay: -7s;
+    }
+
+    /* Top-right cluster */
+    .shape6 {
+        width: 280px;
+        height: 180px;
+        top: -70px;
+        right: -40px;
+        animation: float6 23s ease-in-out infinite;
+        animation-delay: -4s;
+    }
+
+    .shape7 {
+        width: 160px;
+        height: 120px;
+        top: 30px;
+        right: 180px;
+        animation: float7 17s ease-in-out infinite;
+        animation-delay: -1s;
+    }
+
+    /* Bottom-left cluster */
+    .shape8 {
+        width: 250px;
+        height: 170px;
+        bottom: -80px;
+        left: -60px;
+        animation: float8 20s ease-in-out infinite;
+        animation-delay: -6s;
+    }
+
+    .shape9 {
+        width: 190px;
+        height: 140px;
+        bottom: 10px;
+        left: 140px;
+        animation: float9 19s ease-in-out infinite;
+        animation-delay: -2s;
+    }
+
+    /* Bottom-center cluster */
+    .shape10 {
+        width: 220px;
+        height: 150px;
+        bottom: -75px;
+        left: 45%;
+        transform: translateX(-50%);
+        animation: float10 21s ease-in-out infinite;
+        animation-delay: -8s;
+    }
+
+    .shape11 {
+        width: 170px;
+        height: 110px;
+        bottom: 20px;
+        left: 52%;
+        transform: translateX(-50%);
+        animation: float11 18s ease-in-out infinite;
+        animation-delay: -3s;
+    }
+
+    /* Bottom-right cluster */
+    .shape12 {
+        width: 300px;
+        height: 190px;
+        bottom: -85px;
+        right: -50px;
+        animation: float12 22s ease-in-out infinite;
+        animation-delay: -5s;
+    }
+
+    .shape13 {
+        width: 160px;
+        height: 130px;
+        bottom: 15px;
+        right: 160px;
+        animation: float13 19s ease-in-out infinite;
+        animation-delay: -4s;
+    }
+
+    /* Left side cluster */
+    .shape14 {
+        width: 140px;
+        height: 200px;
+        left: -65px;
+        top: 25%;
+        animation: float14 20s ease-in-out infinite;
+        animation-delay: -7s;
+    }
+
+    .shape15 {
+        width: 120px;
+        height: 160px;
+        left: -40px;
+        top: 45%;
+        animation: float15 18s ease-in-out infinite;
+        animation-delay: -1s;
+    }
+
+    /* Right side cluster */
+    .shape16 {
+        width: 150px;
+        height: 210px;
+        right: -70px;
+        top: 30%;
+        animation: float16 21s ease-in-out infinite;
+        animation-delay: -6s;
+    }
+
+    .shape17 {
+        width: 130px;
+        height: 170px;
+        right: -45px;
+        top: 55%;
+        animation: float17 19s ease-in-out infinite;
+        animation-delay: -2s;
+    }
+
+    /* Unique animation paths for each bubble */
+    @keyframes float1 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(15px, -20px); }
+        50% { transform: translate(25px, 10px); }
+        75% { transform: translate(5px, 15px); }
+    }
+
+    @keyframes float2 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-10px, 25px); }
+        50% { transform: translate(20px, 5px); }
+        75% { transform: translate(-15px, -10px); }
+    }
+
+    @keyframes float3 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(18px, -15px); }
+        50% { transform: translate(-5px, 20px); }
+        75% { transform: translate(12px, -5px); }
+    }
+
+    @keyframes float4 {
+        0%, 100% { transform: translateX(-50%) translate(0, 0); }
+        25% { transform: translateX(-50%) translate(20px, -18px); }
+        50% { transform: translateX(-50%) translate(-10px, 15px); }
+        75% { transform: translateX(-50%) translate(15px, 8px); }
+    }
+
+    @keyframes float5 {
+        0%, 100% { transform: translateX(-50%) translate(0, 0); }
+        25% { transform: translateX(-50%) translate(-15px, 20px); }
+        50% { transform: translateX(-50%) translate(18px, -10px); }
+        75% { transform: translateX(-50%) translate(-8px, -15px); }
+    }
+
+    @keyframes float6 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-20px, -15px); }
+        50% { transform: translate(-10px, 18px); }
+        75% { transform: translate(-25px, 5px); }
+    }
+
+    @keyframes float7 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(15px, 22px); }
+        50% { transform: translate(-12px, -8px); }
+        75% { transform: translate(20px, -12px); }
+    }
+
+    @keyframes float8 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(18px, 15px); }
+        50% { transform: translate(-8px, -20px); }
+        75% { transform: translate(12px, -10px); }
+    }
+
+    @keyframes float9 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-15px, -18px); }
+        50% { transform: translate(20px, 10px); }
+        75% { transform: translate(-10px, 15px); }
+    }
+
+    @keyframes float10 {
+        0%, 100% { transform: translateX(-50%) translate(0, 0); }
+        25% { transform: translateX(-50%) translate(-18px, 20px); }
+        50% { transform: translateX(-50%) translate(15px, -12px); }
+        75% { transform: translateX(-50%) translate(-12px, -8px); }
+    }
+
+    @keyframes float11 {
+        0%, 100% { transform: translateX(-50%) translate(0, 0); }
+        25% { transform: translateX(-50%) translate(20px, -15px); }
+        50% { transform: translateX(-50%) translate(-10px, 18px); }
+        75% { transform: translateX(-50%) translate(14px, 10px); }
+    }
+
+    @keyframes float12 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-22px, 18px); }
+        50% { transform: translate(8px, -15px); }
+        75% { transform: translate(-15px, -10px); }
+    }
+
+    @keyframes float13 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(16px, -20px); }
+        50% { transform: translate(-14px, 12px); }
+        75% { transform: translate(18px, 8px); }
+    }
+
+    @keyframes float14 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(20px, -15px); }
+        50% { transform: translate(-12px, 20px); }
+        75% { transform: translate(15px, -8px); }
+    }
+
+    @keyframes float15 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-18px, 18px); }
+        50% { transform: translate(16px, -10px); }
+        75% { transform: translate(-10px, -15px); }
+    }
+
+    @keyframes float16 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(-20px, -18px); }
+        50% { transform: translate(10px, 15px); }
+        75% { transform: translate(-15px, 10px); }
+    }
+
+    @keyframes float17 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(18px, 20px); }
+        50% { transform: translate(-15px, -12px); }
+        75% { transform: translate(12px, -18px); }
+    }
+
+    /* Container */
+    .container {
+        text-align: center;
+        position: relative;
+        z-index: 10;
+    }
+
+    h1 {
+        font-family: 'Khula', sans-serif;
+        color: #ECCE8E;
+        font-size: 60px;
+        margin-bottom: 30px;
+    }
+
+    .step-indicator {
+        font-family: 'Assistant', sans-serif;
+        color: #ECCE8E;
+        font-size: 14px;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+
+    /* Account Box */
+    .account-box {
+        background: #393E46;
+        padding: 30px;
+        border-radius: 25px;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    input {
+        width: 260px;
+        padding: 12px;
+        border: 3px solid #00ADB5;
+        background: #EEEEEE;
+        border-radius: 8px;
+        font-family: 'Assistant', sans-serif;
+        font-size: 18px;
+        color: #393E46;
+        outline: none;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    input::placeholder {
+        color: #00ADB5;
+    }
+
+    /* Step content - FIX: add pointer-events to allow clicks on active step */
+    .step-content {
+        opacity: 0;
+        transform: translateX(100px);
+        transition: all 0.5s ease-in-out;
+        position: absolute;
+        width: 100%;
+        pointer-events: none;
+    }
+
+    .step-content.active {
+        opacity: 1;
+        transform: translateX(0);
+        position: relative;
+        pointer-events: auto;
+    }
+
+    .step-content.exit-left {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    /* Action Button */
+    .action-btn {
+        width: 70px;
+        height: 70px;
+        background: #00ADB5;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.3s;
+        border: none;
+        color: #EEEEEE;
+        margin-top: 30px;
+    }
+
+    .action-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .action-btn svg {
+        width: 28px;
+        height: 28px;
+        stroke-width: 3;
+    }
+
+    /* Back to Login */
+    .back-login {
+        margin-top: 40px;
+    }
+
+    .back-login button {
+        padding: 12px 30px;
+        background: transparent;
+        border: 2px solid #EEEEEE;
+        color: #EEEEEE;
+        font-family: 'Assistant', sans-serif;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .back-login button:hover {
+        background: #EEEEEE;
+        color: #222831;
+    }
+</style>
+
+</head>
+
+<body>
+
+<!-- Background shapes -->
+<!-- Top-left cluster -->
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
+
+<!-- Top-center cluster -->
+<div class="bg-shape shape4"></div>
+<div class="bg-shape shape5"></div>
+
+<!-- Top-right cluster -->
+<div class="bg-shape shape6"></div>
+<div class="bg-shape shape7"></div>
+
+<!-- Bottom-left cluster -->
+<div class="bg-shape shape8"></div>
+<div class="bg-shape shape9"></div>
+
+<!-- Bottom-center cluster -->
+<div class="bg-shape shape10"></div>
+<div class="bg-shape shape11"></div>
+
+<!-- Bottom-right cluster -->
+<div class="bg-shape shape12"></div>
+<div class="bg-shape shape13"></div>
+
+<!-- Left side cluster -->
+<div class="bg-shape shape14"></div>
+<div class="bg-shape shape15"></div>
+
+<!-- Right side cluster -->
+<div class="bg-shape shape16"></div>
+<div class="bg-shape shape17"></div>
+
+<div class="container">
+    <h1>Create Account</h1>
+
+    <div class="step-indicator">STEP <span id="current-step">1</span> OF 3</div>
+
+    <div class="account-box">
+        <div class="inputs">
+            <!-- Step 1: Email -->
+            <div class="step-content active" id="step-1">
+                <input type="email" id="email-input" placeholder="Email" required>
+            </div>
+
+            <!-- Step 2: Username & Password -->
+            <div class="step-content" id="step-2">
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="text" id="username-input" placeholder="Username" required>
+                    <input type="password" id="password-input" placeholder="Password" required>
+                </div>
+            </div>
+
+            <!-- Step 3: Confirm Password -->
+            <div class="step-content" id="step-3">
+                <input type="password" id="confirm-password-input" placeholder="Confirm Password" required>
+            </div>
+        </div>
+    </div>
+
+    <button class="action-btn" id="action-btn" onclick="nextStep()">
+        <i data-lucide="arrow-right"></i>
+    </button>
+
+    <div class="back-login">
+        <button onclick="window.location.href='login.html'">Back to Login</button>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+
+    function validatePassword(password) {
+        const hasMinLength = password.length >= 8;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasSpecialOrNumber = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]/.test(password);
+        
+        return hasMinLength && hasUppercase && hasLowercase && hasSpecialOrNumber;
+    }
+
+    function nextStep() {
+        // Validate current step
+        if (currentStep === 1) {
+            const email = document.getElementById('email-input').value;
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email');
+                return;
+            }
+        } else if (currentStep === 2) {
+            const username = document.getElementById('username-input').value;
+            const password = document.getElementById('password-input').value;
+            if (!username || !password) {
+                alert('Please enter username and password');
+                return;
+            }
+            if (!validatePassword(password)) {
+                alert('Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one special character or number');
+                return;
+            }
+        } else if (currentStep === 3) {
+            const password = document.getElementById('password-input').value;
+            const confirmPassword = document.getElementById('confirm-password-input').value;
+            if (!confirmPassword) {
+                alert('Please confirm your password');
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            // Account created successfully - save to localStorage
+            const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+            accounts.push({
+                username: username,
+                password: password
+            });
+            localStorage.setItem('accounts', JSON.stringify(accounts));
+            alert('Account created successfully!');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Animate out current step
+        const currentStepEl = document.getElementById(`step-${currentStep}`);
+        currentStepEl.classList.add('exit-left');
+        currentStepEl.classList.remove('active');
+
+        // Move to next step
+        currentStep++;
+        document.getElementById('current-step').textContent = currentStep;
+
+        // Animate in next step
+        setTimeout(() => {
+            const nextStepEl = document.getElementById(`step-${currentStep}`);
+            nextStepEl.classList.remove('exit-left');
+            nextStepEl.classList.add('active');
+        }, 50);
+
+        // Update button icon on final step
+        if (currentStep === 3) {
+            document.getElementById('action-btn').innerHTML = '<i data-lucide="check"></i>';
+            lucide.createIcons();
+        }
+    }
+
+    // Allow Enter key to proceed
+    document.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            nextStep();
+        }
+    });
+
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
