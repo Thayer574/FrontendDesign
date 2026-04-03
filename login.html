@@ -509,6 +509,21 @@
     });
     
     lucide.createIcons();
+
+    // Initialize practice account if it doesn't exist
+    (function initPracticeAccount() {
+        const practiceAccount = { username: 'testproxy', password: 'passwordtest' };
+        let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+        
+        // Check if the practice account already exists
+        const exists = accounts.some(acc => acc.username === practiceAccount.username);
+        
+        if (!exists) {
+            accounts.push(practiceAccount);
+            localStorage.setItem('accounts', JSON.stringify(accounts));
+            console.log('Practice account created: testproxy');
+        }
+    })();
 </script>
 
 </body>
